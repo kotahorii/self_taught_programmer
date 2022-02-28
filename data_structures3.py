@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import random
 from typing import Any, Optional
 
 
 class Node:
-    def __init__(self, data: Any, next: Optional[Node] = None) -> None:
+    def __init__(self, data: Any, next: Node = None) -> None:
         self.data = data
         self.next = next
 
@@ -29,8 +30,39 @@ class LinkedList:
             current = current.next
         current.next = Node(data)
 
+    def search(self, target: Any) -> bool:
+        current = self.head
+        while current.next:
+            if current.data == target:
+                return True
+            else:
+                current = current.next
+        return False
+
+    def remove(self, target: Any):
+        if self.head == target:
+            self.head = self.head.next
+            return
+        current = self.head
+        previous: Optional[Node] = None
+        while current:
+            if current.data == target:
+                previous.next = current.next
+            previous = current
+            current = current.next
+
 
 a_list = LinkedList()
-a_list.append("Tuesday")
-a_list.append("Wednesday")
+for i in range(0, 20):
+    a_list.append(i)
+
 print(a_list)
+a_list.remove(3)
+print(a_list)
+
+# d: deque[Any] = deque()
+# d.append("Harry")
+# d.append("Potter")
+
+# for item in d:
+#     print(item)
