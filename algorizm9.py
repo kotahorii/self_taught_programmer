@@ -16,6 +16,9 @@
 #     raise ValueError("Numbers must be positive")
 
 
+import math
+
+
 def gcf(x: int, y: int) -> int:
     if y == 0:
         x, y = y, x
@@ -25,3 +28,17 @@ def gcf(x: int, y: int) -> int:
 
 
 print(gcf(20, 12))
+
+
+def is_prime(n: int) -> bool:
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def find_primes(n: int) -> list[int]:
+    return [i for i in range(2, n) if is_prime(i)]
+
+
+print(find_primes(100))
