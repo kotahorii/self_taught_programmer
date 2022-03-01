@@ -51,18 +51,42 @@ class LinkedList:
             previous = current
             current = current.next
 
+    def reverse_list(self):
+        current = self.head
+        previous: Optional[Node] = None
+        while current:
+            next = current.next
+            current.next = previous
+            previous = current
+            current = next
+        self.head = previous
+
+    def detect_cycle(self):
+        slow = self.head
+        fast = self.head
+
+        while True:
+            try:
+                slow = slow.next
+                fast = fast.next.next
+                if slow is fast:
+                    return True
+            except:
+                return False
+
+    def create_cycle(self):
+        head = self.head
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = head
+
 
 a_list = LinkedList()
-for i in range(0, 20):
+for i in range(1, 101):
     a_list.append(i)
 
-print(a_list)
-a_list.remove(3)
-print(a_list)
 
-# d: deque[Any] = deque()
-# d.append("Harry")
-# d.append("Potter")
-
-# for item in d:
-#     print(item)
+print(a_list.detect_cycle())
+a_list.create_cycle()
+print(a_list.detect_cycle())
