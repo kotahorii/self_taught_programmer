@@ -53,3 +53,16 @@ stack.push(3)
 
 for _ in range(3):
     print(stack.pop())
+
+
+def reverse_string(a_string: str) -> str:
+    stack: list[str] = []
+    string = ""
+    for c in a_string:
+        stack.append(c)
+    for c in a_string:
+        string += stack.pop()
+    return string
+
+
+print(reverse_string("takashi"))
