@@ -65,12 +65,28 @@ class BinaryTree:
         return True
 
 
+def invert(tree: BinaryTree):
+    if tree:
+        tmp = tree.left_child
+        tree.left_child = tree.right_child
+        tree.right_child = tmp
+        invert(tree.left_child)
+        invert(tree.right_child)
+
+
+def preorder(tree: BinaryTree):
+    if tree:
+        print(tree.key)
+        preorder(tree.left_child)
+        preorder(tree.right_child)
+
+
 tree = BinaryTree(1)
-print(tree.has_leaf_nodes())
 tree.insert_left(2)
 tree.insert_right(3)
-tree.insert_left(4)
-print(tree.has_leaf_nodes())
-tree.left_child.insert_right(6)
-tree.insert_right(5)
-print(tree.has_leaf_nodes())
+tree.left_child.insert_left(4)
+tree.right_child.insert_left(5)
+tree.right_child.insert_right(6)
+preorder(tree)
+invert(tree)
+preorder(tree)
