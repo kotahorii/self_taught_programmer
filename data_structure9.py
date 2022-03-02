@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any
 
 
@@ -38,10 +40,37 @@ class BinaryTree:
             next = []
         return False
 
+    def invert(self):
+        current = [self]
+        next: list[BinaryTree] = []
+        while current:
+            for node in current:
+                if node.left_child:
+                    next.append(node.left_child)
+                if node.right_child:
+                    next.append(node.right_child)
+                tmp = node.left_child
+                node.left_child = node.right_child
+                node.right_child = tmp
+            current = next
+            next = []
+
+    def has_leaf_nodes(self) -> bool:
+        if self.left_child is None or self.right_child is None:
+            return False
+        if self.left_child.left_child is None or self.left_child.right_child is None:
+            return False
+        if self.left_child.right_child is None or self.right_child.right_child is None:
+            return False
+        return True
+
 
 tree = BinaryTree(1)
+print(tree.has_leaf_nodes())
 tree.insert_left(2)
 tree.insert_right(3)
 tree.insert_left(4)
+print(tree.has_leaf_nodes())
 tree.left_child.insert_right(6)
 tree.insert_right(5)
+print(tree.has_leaf_nodes())
